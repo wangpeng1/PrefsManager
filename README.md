@@ -6,15 +6,6 @@
 
 <br>
 # 使い方
-初回に**Initialize**をコールし、アセットバンドルが含まれるサーバ上のディレクトリとアセットバンドルのバージョンを指定します。  
-一度設定すれば以降、値の変更しない限り設定する必要はありません。
-
-`AssetBundleManager.Instance.Initialize (bundleDirURL, 1);`
-
-<br>
-#### アセットバンドルのダウンロード
-**DownloadAssetBundle**でダウンロードするアセットバンドル名を指定します。  
-コールバックデリゲートでダウンロードの進捗値を取得できます。
 
     using UnityEngine;
     using System.Collections;

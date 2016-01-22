@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,27 +14,15 @@ namespace PrefsManager {
 	public class Keys
 	{
 		/// <summary>
-		/// 単眼か双眼のカメラ設定情報
-		/// "MONO"	: 双眼
-		/// "BOTH"	: 単眼
+		/// ユーザー名
 		/// </summary>
-		public const string CAMERA_TYPE = "CAMERA_TYPE";
+		public const string USER_NAME = "USER_NAME";
 
 		/// <summary>
-		/// マーカーリングを使用するかどうか
-		/// true	: 使用する
-		/// false	: 使用しない
+		/// ユーザーレベル
 		/// </summary>
-		public const string IS_USE_MARKERRING = "IS_USE_MARKERRING";
-
-		/// <summary>
-		/// 資料室のデータをダウンロードをお知らせするアラートを表示したかどうか
-		/// true	: 表示した
-		/// false 	: 表示していない
-		/// </summary>
-		public const string IS_SHOW_GALLERY_ALERT = "IS_SHOW_GALLERY_ALERT";
+		public const string USER_LEVEL = "USER_LEVEL";
 	}
-
 
 
 	/// <summary>
@@ -108,7 +96,6 @@ namespace PrefsManager {
 				// ロードしたデータを返す
 				return data;
 			}
-			Debug.Log ("キーに対応するファイルが存在しません。");
 			// 規定値を返す
 			return default (T);
 		}
@@ -141,7 +128,7 @@ namespace PrefsManager {
 		/// <summary>
 		/// すべてのデータを削除します。
 		/// </summary>
-		/// <returns><c>true</c>, すべてのデータが正しく削除された場合 <c>false</c> 該当するファイルが存在しなかった場合</returns>
+		/// <returns><c>true</c>,すべてのデータが正しく削除された場合 <c>false</c> 該当するファイルが存在しなかった場合</returns>
 		public static bool DeleteAll () {
 			// 保存先のファイルを設定
 			string path = SaveDir + dirName;
@@ -162,8 +149,39 @@ namespace PrefsManager {
 					// 削除成功
 					return true;
 				}
-				Debug.Log ("キーに対応するファイルが存在しません。");
 				// 削除するファイルが存在しない
+				return false;
+			}
+			Debug.Log (dirName + "ディレクトリが存在しません。");
+			// ディレクトリが存在しない
+			return false;
+		}
+
+
+		/// <summary>
+		/// キーが存在するかどうか判定します。
+		/// </summary>
+		/// <returns><c>true</c>, キーが存在します <c>false</c>キーが存在しません。</returns>
+		/// <param name="key">調べるキーを設定します</param>
+		public static bool HasKey (string key) {
+			// 保存先のファイルを設定
+			string dirPath = SaveDir + dirName;
+			string savePath = GetSavePath (key);
+
+			// ファイルが存在するかどうか
+			if (Directory.Exists (dirPath)) {
+				// ファイルをすべて取得
+				string[] filePaths = Directory.GetFiles (dirPath+"/");
+				if (filePaths.Length > 0) {
+					// ディレクトリ配下のファイルをすべて走査
+					foreach (string filePath in filePaths) {
+						if (savePath == filePath) {
+							// キーが存在する
+							return true;
+						}
+					}
+				}
+				// キーが存在しない
 				return false;
 			}
 			Debug.Log (dirName + "ディレクトリが存在しません。");

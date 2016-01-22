@@ -6,6 +6,8 @@
 
 <br>
 # 使い方
+保存されるデータはpersistentDataPathディレクトリ(エディタではStreamingAssets)配下に生成されるuserinfoの中にファイル単位で保存されます。
+データはバイナリデータとして保存されるので安易に解読されることはないかと思います。
 
     using UnityEngine;
     using System.Collections;
@@ -59,4 +61,8 @@
                 public string name = "勇者";
                 public int level = 1;
         }
-}
+    }
+
+
+キー管理用にKeysクラスをネームスペース内に用意していますが、使わなくても問題はないです。 
+ご自由にどうぞ。
